@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "users": [
+    {
+      "userId": "relay-test-user",
+      "name": "Relay Test User",
+      "token": "relay-user-test-token",
+      "createdAt": 1776266284567
+    }
+  ],
+  "deviceTokens": [
+    {
+      "deviceId": "relay-test-device",
+      "deviceName": "Relay Test Device",
+      "token": "relay-device-test-token",
+      "createdAt": 1776266284569
+    }
+  ],
+  "bindings": [
+    {
+      "userId": "relay-test-user",
+      "deviceId": "relay-test-device",
+      "createdAt": 1776266284589
+    }
+  ]
+}

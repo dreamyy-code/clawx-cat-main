@@ -1,0 +1,19 @@
+{
+  "defaultTrack": "stable",
+  "tracks": [
+    {
+      "id": "stable",
+      "displayName": "Stable",
+      "openclawVersion": "2026.4.2",
+      "artifactSuffix": "stable",
+      "updatePath": "stable"
+    },
+    {
+      "id": "new",
+      "displayName": "New",
+      "openclawVersion": "2026.4.26",
+      "artifactSuffix": "new",
+      "updatePath": "new"
+    }
+  ]
+}

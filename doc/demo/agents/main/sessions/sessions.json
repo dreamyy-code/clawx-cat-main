@@ -1,0 +1,556 @@
+{
+  "agent:main:main": {
+    "sessionId": "e068fb84-4a1b-4c44-a201-271cabc81938",
+    "updatedAt": 1775210506072,
+    "systemSent": true,
+    "abortedLastRun": false,
+    "chatType": "direct",
+    "deliveryContext": {
+      "channel": "webchat",
+      "to": "heartbeat"
+    },
+    "lastChannel": "webchat",
+    "origin": {
+      "provider": "heartbeat",
+      "surface": "webchat",
+      "chatType": "direct",
+      "label": "heartbeat",
+      "from": "heartbeat",
+      "to": "heartbeat"
+    },
+    "sessionFile": "C:\\Users\\41049\\.openclaw\\agents\\main\\sessions\\e068fb84-4a1b-4c44-a201-271cabc81938.jsonl",
+    "compactionCount": 0,
+    "skillsSnapshot": {
+      "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>clawhub</name>\n    <description>Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\clawhub\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\healthcheck\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>node-connect</name>\n    <description>Diagnose OpenClaw node connection and pairing failures for Android, iOS, and macOS companion apps. Use when QR/setup code/manual connect fails, local Wi-Fi works but VPS/tailnet does not, or errors mention pairing required, unauthorized, bootstrap token invalid or expired, gateway.bind, gateway.remote.url, Tailscale, or plugins.entries.device-pair.config.publicUrl.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\node-connect\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create, edit, improve, or audit AgentSkills. Use when creating a new skill from scratch or when asked to improve, review, audit, tidy up, or clean up an existing skill or SKILL.md file. Also use when editing or restructuring a skill directory (moving files to references/ or scripts/, removing stale content, validating against the AgentSkills spec). Triggers on phrases like &quot;create a skill&quot;, &quot;author a skill&quot;, &quot;tidy up a skill&quot;, &quot;improve this skill&quot;, &quot;review the skill&quot;, &quot;clean up the skill&quot;, &quot;audit the skill&quot;.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\skill-creator\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather and forecasts via wttr.in or Open-Meteo. Use when: user asks about weather, temperature, or forecasts for any location. NOT for: historical weather data, severe weather alerts, or detailed meteorological analysis. No API key needed.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\weather\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>cn-web-search</name>\n    <description>中文网页搜索 - 聚合 22+ 免费搜索引擎，无需 API Key，支持公众号/知乎/财经/技术/学术/知识搜索。唯一真正免费的中文多引擎搜索方案！</description>\n    <location>~/.openclaw\\workspace\\skills\\cn-web-search\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>Excel / XLSX</name>\n    <description>Create, inspect, and edit Microsoft Excel workbooks and XLSX files with reliable formulas, dates, types, formatting, recalculation, and template preservation. Use when (1) the task is about Excel, `.xlsx`, `.xlsm`, `.xls`, `.csv`, or `.tsv`; (2) formulas, formatting, workbook structure, or compatibility matter; (3) the file must stay reliable after edits.</description>\n    <location>~/.openclaw\\workspace\\skills\\excel-xlsx\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>find-skills</name>\n    <description>Helps users discover and install agent skills when they ask questions like &quot;how do I do X&quot;, &quot;find a skill for X&quot;, &quot;is there a skill that can...&quot;, or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.</description>\n    <location>~/.openclaw\\workspace\\skills\\find-skills\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>multi-search-engine</name>\n    <description>Multi search engine integration with 17 engines (8 CN + 9 Global). Supports advanced search operators, time filters, site search, privacy engines, and WolframAlpha knowledge queries. No API keys required.</description>\n    <location>~/.openclaw\\workspace\\skills\\multi-search-engine\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>self-improvement</name>\n    <description>Captures learnings, errors, and corrections to enable continuous improvement. Use when: (1) A command or operation fails unexpectedly, (2) User corrects Claude (&apos;No, that&apos;s wrong...&apos;, &apos;Actually...&apos;), (3) User requests a capability that doesn&apos;t exist, (4) An external API or tool fails, (5) Claude realizes its knowledge is outdated or incorrect, (6) A better approach is discovered for a recurring task. Also review learnings before major tasks.</description>\n    <location>~/.openclaw\\workspace\\skills\\self-improving-agent\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-vetter</name>\n    <description>Security-first skill vetting for AI agents. Use before installing any skill from ClawdHub, GitHub, or other sources. Checks for red flags, permission scope, and suspicious patterns.</description>\n    <location>~/.openclaw\\workspace\\skills\\skill-vetter\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>wechat-article-search</name>\n    <description>搜索微信公众号文章技能。通过微信搜索获取文章列表，覆盖科技/AI、社会热点、财经、教育、职场等各类中文资讯；可按关键词检索并返回标题、概要、发布时间、来源公众号与链接。当用户需要查找微信公众号文章、整理参考资料或快速获取文章信息时使用此技能。</description>\n    <location>~/.openclaw\\workspace\\skills\\wechat-article-search\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>wechat-toolkit</name>\n    <description>微信公众号一站式工具包 — 集成文章搜索、文章下载、AI洗稿改写、公众号发布四大功能。当用户需要搜索/下载/改写/发布微信公众号文章时使用。</description>\n    <location>~/.openclaw\\workspace\\skills\\wechat-toolkit\\SKILL.md</location>\n  </skill>\n</available_skills>",
+      "skills": [
+        {
+          "name": "clawhub",
+          "requiredEnv": []
+        },
+        {
+          "name": "healthcheck"
+        },
+        {
+          "name": "node-connect"
+        },
+        {
+          "name": "skill-creator"
+        },
+        {
+          "name": "weather",
+          "requiredEnv": []
+        },
+        {
+          "name": "cn-web-search"
+        },
+        {
+          "name": "Excel / XLSX"
+        },
+        {
+          "name": "find-skills"
+        },
+        {
+          "name": "multi-search-engine"
+        },
+        {
+          "name": "self-improvement"
+        },
+        {
+          "name": "skill-vetter"
+        },
+        {
+          "name": "wechat-article-search"
+        },
+        {
+          "name": "wechat-toolkit",
+          "requiredEnv": []
+        }
+      ],
+      "resolvedSkills": [
+        {
+          "name": "clawhub",
+          "description": "Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.",
+          "filePath": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\clawhub\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\clawhub",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\clawhub\\SKILL.md",
+            "source": "openclaw-bundled",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\clawhub"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "healthcheck",
+          "description": "Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).",
+          "filePath": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\healthcheck\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\healthcheck",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\healthcheck\\SKILL.md",
+            "source": "openclaw-bundled",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\healthcheck"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "node-connect",
+          "description": "Diagnose OpenClaw node connection and pairing failures for Android, iOS, and macOS companion apps. Use when QR/setup code/manual connect fails, local Wi-Fi works but VPS/tailnet does not, or errors mention pairing required, unauthorized, bootstrap token invalid or expired, gateway.bind, gateway.remote.url, Tailscale, or plugins.entries.device-pair.config.publicUrl.",
+          "filePath": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\node-connect\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\node-connect",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\node-connect\\SKILL.md",
+            "source": "openclaw-bundled",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\node-connect"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "skill-creator",
+          "description": "Create, edit, improve, or audit AgentSkills. Use when creating a new skill from scratch or when asked to improve, review, audit, tidy up, or clean up an existing skill or SKILL.md file. Also use when editing or restructuring a skill directory (moving files to references/ or scripts/, removing stale content, validating against the AgentSkills spec). Triggers on phrases like \"create a skill\", \"author a skill\", \"tidy up a skill\", \"improve this skill\", \"review the skill\", \"clean up the skill\", \"audit the skill\".",
+          "filePath": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\skill-creator\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\skill-creator",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\skill-creator\\SKILL.md",
+            "source": "openclaw-bundled",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\skill-creator"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "weather",
+          "description": "Get current weather and forecasts via wttr.in or Open-Meteo. Use when: user asks about weather, temperature, or forecasts for any location. NOT for: historical weather data, severe weather alerts, or detailed meteorological analysis. No API key needed.",
+          "filePath": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\weather\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\weather",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\weather\\SKILL.md",
+            "source": "openclaw-bundled",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\weather"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "cn-web-search",
+          "description": "中文网页搜索 - 聚合 22+ 免费搜索引擎，无需 API Key，支持公众号/知乎/财经/技术/学术/知识搜索。唯一真正免费的中文多引擎搜索方案！",
+          "filePath": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\cn-web-search\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\cn-web-search",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\cn-web-search\\SKILL.md",
+            "source": "openclaw-workspace",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\cn-web-search"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "Excel / XLSX",
+          "description": "Create, inspect, and edit Microsoft Excel workbooks and XLSX files with reliable formulas, dates, types, formatting, recalculation, and template preservation. Use when (1) the task is about Excel, `.xlsx`, `.xlsm`, `.xls`, `.csv`, or `.tsv`; (2) formulas, formatting, workbook structure, or compatibility matter; (3) the file must stay reliable after edits.",
+          "filePath": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\excel-xlsx\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\excel-xlsx",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\excel-xlsx\\SKILL.md",
+            "source": "openclaw-workspace",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\excel-xlsx"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "find-skills",
+          "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+          "filePath": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\find-skills\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\find-skills",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\find-skills\\SKILL.md",
+            "source": "openclaw-workspace",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\find-skills"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "multi-search-engine",
+          "description": "Multi search engine integration with 17 engines (8 CN + 9 Global). Supports advanced search operators, time filters, site search, privacy engines, and WolframAlpha knowledge queries. No API keys required.",
+          "filePath": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\multi-search-engine\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\multi-search-engine",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\multi-search-engine\\SKILL.md",
+            "source": "openclaw-workspace",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\multi-search-engine"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "self-improvement",
+          "description": "Captures learnings, errors, and corrections to enable continuous improvement. Use when: (1) A command or operation fails unexpectedly, (2) User corrects Claude ('No, that's wrong...', 'Actually...'), (3) User requests a capability that doesn't exist, (4) An external API or tool fails, (5) Claude realizes its knowledge is outdated or incorrect, (6) A better approach is discovered for a recurring task. Also review learnings before major tasks.",
+          "filePath": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\self-improving-agent\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\self-improving-agent",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\self-improving-agent\\SKILL.md",
+            "source": "openclaw-workspace",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\self-improving-agent"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "skill-vetter",
+          "description": "Security-first skill vetting for AI agents. Use before installing any skill from ClawdHub, GitHub, or other sources. Checks for red flags, permission scope, and suspicious patterns.",
+          "filePath": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\skill-vetter\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\skill-vetter",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\skill-vetter\\SKILL.md",
+            "source": "openclaw-workspace",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\skill-vetter"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "wechat-article-search",
+          "description": "搜索微信公众号文章技能。通过微信搜索获取文章列表，覆盖科技/AI、社会热点、财经、教育、职场等各类中文资讯；可按关键词检索并返回标题、概要、发布时间、来源公众号与链接。当用户需要查找微信公众号文章、整理参考资料或快速获取文章信息时使用此技能。",
+          "filePath": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\wechat-article-search\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\wechat-article-search",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\wechat-article-search\\SKILL.md",
+            "source": "openclaw-workspace",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\wechat-article-search"
+          },
+          "disableModelInvocation": false
+        },
+        {
+          "name": "wechat-toolkit",
+          "description": "微信公众号一站式工具包 — 集成文章搜索、文章下载、AI洗稿改写、公众号发布四大功能。当用户需要搜索/下载/改写/发布微信公众号文章时使用。",
+          "filePath": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\wechat-toolkit\\SKILL.md",
+          "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\wechat-toolkit",
+          "sourceInfo": {
+            "path": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\wechat-toolkit\\SKILL.md",
+            "source": "openclaw-workspace",
+            "scope": "temporary",
+            "origin": "top-level",
+            "baseDir": "C:\\Users\\41049\\.openclaw\\workspace\\skills\\wechat-toolkit"
+          },
+          "disableModelInvocation": false
+        }
+      ],
+      "version": 0
+    },
+    "status": "done",
+    "startedAt": 1775210502945,
+    "fallbackNoticeSelectedModel": "minimax/MiniMax-M2.7",
+    "fallbackNoticeActiveModel": "MiniMax/MiniMax-M2.7",
+    "fallbackNoticeReason": "selected model unavailable",
+    "modelProvider": "MiniMax",
+    "model": "MiniMax-M2.7",
+    "systemPromptReport": {
+      "source": "run",
+      "generatedAt": 1775210502891,
+      "sessionId": "e068fb84-4a1b-4c44-a201-271cabc81938",
+      "sessionKey": "agent:main:main",
+      "provider": "minimax",
+      "model": "MiniMax-M2.7",
+      "workspaceDir": "C:\\Users\\41049\\.openclaw\\workspace",
+      "bootstrapMaxChars": 20000,
+      "bootstrapTotalMaxChars": 150000,
+      "bootstrapTruncation": {
+        "warningMode": "once",
+        "warningShown": false,
+        "truncatedFiles": 0,
+        "nearLimitFiles": 0,
+        "totalNearLimit": false
+      },
+      "sandbox": {
+        "mode": "off",
+        "sandboxed": false
+      },
+      "systemPrompt": {
+        "chars": 32328,
+        "projectContextChars": 15154,
+        "nonProjectContextChars": 17174
+      },
+      "injectedWorkspaceFiles": [
+        {
+          "name": "AGENTS.md",
+          "path": "C:\\Users\\41049\\.openclaw\\workspace\\AGENTS.md",
+          "missing": false,
+          "rawChars": 7809,
+          "injectedChars": 7809,
+          "truncated": false
+        },
+        {
+          "name": "SOUL.md",
+          "path": "C:\\Users\\41049\\.openclaw\\workspace\\SOUL.md",
+          "missing": false,
+          "rawChars": 1664,
+          "injectedChars": 1664,
+          "truncated": false
+        },
+        {
+          "name": "TOOLS.md",
+          "path": "C:\\Users\\41049\\.openclaw\\workspace\\TOOLS.md",
+          "missing": false,
+          "rawChars": 850,
+          "injectedChars": 850,
+          "truncated": false
+        },
+        {
+          "name": "IDENTITY.md",
+          "path": "C:\\Users\\41049\\.openclaw\\workspace\\IDENTITY.md",
+          "missing": false,
+          "rawChars": 243,
+          "injectedChars": 243,
+          "truncated": false
+        },
+        {
+          "name": "USER.md",
+          "path": "C:\\Users\\41049\\.openclaw\\workspace\\USER.md",
+          "missing": false,
+          "rawChars": 321,
+          "injectedChars": 321,
+          "truncated": false
+        },
+        {
+          "name": "HEARTBEAT.md",
+          "path": "C:\\Users\\41049\\.openclaw\\workspace\\HEARTBEAT.md",
+          "missing": false,
+          "rawChars": 192,
+          "injectedChars": 192,
+          "truncated": false
+        },
+        {
+          "name": "BOOTSTRAP.md",
+          "path": "C:\\Users\\41049\\.openclaw\\workspace\\BOOTSTRAP.md",
+          "missing": true,
+          "rawChars": 0,
+          "injectedChars": 70,
+          "truncated": false
+        },
+        {
+          "name": "MEMORY.md",
+          "path": "C:\\Users\\41049\\.openclaw\\workspace\\MEMORY.md",
+          "missing": false,
+          "rawChars": 3387,
+          "injectedChars": 3387,
+          "truncated": false
+        }
+      ],
+      "skills": {
+        "promptChars": 6173,
+        "entries": [
+          {
+            "name": "clawhub",
+            "blockChars": 436
+          },
+          {
+            "name": "healthcheck",
+            "blockChars": 495
+          },
+          {
+            "name": "node-connect",
+            "blockChars": 545
+          },
+          {
+            "name": "skill-creator",
+            "blockChars": 763
+          },
+          {
+            "name": "weather",
+            "blockChars": 420
+          },
+          {
+            "name": "cn-web-search",
+            "blockChars": 232
+          },
+          {
+            "name": "Excel / XLSX",
+            "blockChars": 511
+          },
+          {
+            "name": "find-skills",
+            "blockChars": 487
+          },
+          {
+            "name": "multi-search-engine",
+            "blockChars": 374
+          },
+          {
+            "name": "self-improvement",
+            "blockChars": 643
+          },
+          {
+            "name": "skill-vetter",
+            "blockChars": 337
+          },
+          {
+            "name": "wechat-article-search",
+            "blockChars": 295
+          },
+          {
+            "name": "wechat-toolkit",
+            "blockChars": 230
+          }
+        ]
+      },
+      "tools": {
+        "listChars": 1981,
+        "schemaChars": 18078,
+        "entries": [
+          {
+            "name": "read",
+            "summaryChars": 298,
+            "schemaChars": 574,
+            "propertiesCount": 6
+          },
+          {
+            "name": "edit",
+            "summaryChars": 511,
+            "schemaChars": 2470,
+            "propertiesCount": 13
+          },
+          {
+            "name": "write",
+            "summaryChars": 127,
+            "schemaChars": 497,
+            "propertiesCount": 5
+          },
+          {
+            "name": "exec",
+            "summaryChars": 181,
+            "schemaChars": 1086,
+            "propertiesCount": 12
+          },
+          {
+            "name": "process",
+            "summaryChars": 85,
+            "schemaChars": 961,
+            "propertiesCount": 12
+          },
+          {
+            "name": "canvas",
+            "summaryChars": 106,
+            "schemaChars": 661,
+            "propertiesCount": 18
+          },
+          {
+            "name": "message",
+            "summaryChars": 89,
+            "schemaChars": 5521,
+            "propertiesCount": 104
+          },
+          {
+            "name": "tts",
+            "summaryChars": 152,
+            "schemaChars": 223,
+            "propertiesCount": 2
+          },
+          {
+            "name": "agents_list",
+            "summaryChars": 118,
+            "schemaChars": 33,
+            "propertiesCount": 0
+          },
+          {
+            "name": "sessions_list",
+            "summaryChars": 54,
+            "schemaChars": 212,
+            "propertiesCount": 4
+          },
+          {
+            "name": "sessions_history",
+            "summaryChars": 36,
+            "schemaChars": 161,
+            "propertiesCount": 3
+          },
+          {
+            "name": "sessions_send",
+            "summaryChars": 84,
+            "schemaChars": 274,
+            "propertiesCount": 5
+          },
+          {
+            "name": "sessions_yield",
+            "summaryChars": 97,
+            "schemaChars": 60,
+            "propertiesCount": 1
+          },
+          {
+            "name": "sessions_spawn",
+            "summaryChars": 198,
+            "schemaChars": 1179,
+            "propertiesCount": 17
+          },
+          {
+            "name": "subagents",
+            "summaryChars": 105,
+            "schemaChars": 191,
+            "propertiesCount": 4
+          },
+          {
+            "name": "session_status",
+            "summaryChars": 207,
+            "schemaChars": 89,
+            "propertiesCount": 2
+          },
+          {
+            "name": "web_search",
+            "summaryChars": 93,
+            "schemaChars": 446,
+            "propertiesCount": 4
+          },
+          {
+            "name": "web_fetch",
+            "summaryChars": 129,
+            "schemaChars": 374,
+            "propertiesCount": 3
+          },
+          {
+            "name": "browser",
+            "summaryChars": 1066,
+            "schemaChars": 2799,
+            "propertiesCount": 48
+          },
+          {
+            "name": "memory_search",
+            "summaryChars": 334,
+            "schemaChars": 139,
+            "propertiesCount": 3
+          },
+          {
+            "name": "memory_get",
+            "summaryChars": 151,
+            "schemaChars": 128,
+            "propertiesCount": 3
+          }
+        ]
+      }
+    },
+    "cacheRead": 2163,
+    "cacheWrite": 21646,
+    "totalTokensFresh": true,
+    "contextTokens": 200000,
+    "inputTokens": 67,
+    "outputTokens": 26,
+    "estimatedCostUsd": 0,
+    "totalTokens": 23876,
+    "lastTo": "heartbeat",
+    "endedAt": 1775210505993,
+    "runtimeMs": 3048
+  }
+}

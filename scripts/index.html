@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Update Bucket File Proxy</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #17202a;
+      --muted: #5e6b78;
+      --line: #d7dfe8;
+      --ok: #0a7f3f;
+      --warn: #b35a00;
+      --primary: #1463ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      padding: 24px;
+    }
+    .wrap { max-width: 1000px; margin: 0 auto; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    h1 { margin: 0 0 8px; font-size: 22px; }
+    p { margin: 8px 0; line-height: 1.55; color: var(--muted); }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+    }
+    input, button {
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      padding: 0 12px;
+      font-size: 14px;
+    }
+    input { width: 100%; background: #fff; }
+    button {
+      background: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    button.primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .status { font-size: 13px; margin-top: 10px; }
+    .status.ok { color: var(--ok); }
+    .status.warn { color: var(--warn); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: #fff;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: #203040; background: #fbfdff; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .tag {
+      display: inline-block;
+      border: 1px solid #cfd8e3;
+      border-radius: 999px;
+      padding: 1px 8px;
+      font-size: 12px;
+      margin-right: 4px;
+      color: #334455;
+      background: #f8fbff;
+    }
+    .tips {
+      font-size: 13px;
+      color: #4f5f70;
+      margin-top: 8px;
+    }
+    .small { font-size: 12px; color: #6a7888; }
+    a { color: #1157dc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Update Bucket File Proxy</h1>
+      <p>
+        Upload this <span class="mono">index.html</span> with your Electron update files to the same bucket path.
+        This page tries to list files under the current path and map direct download links.
+      </p>
+      <div class="row">
+        <input id="prefixInput" class="mono" />
+        <button id="reloadBtn" class="primary">Reload</button>
+        <button id="copyBaseBtn">Copy Base URL</button>
+      </div>
+      <div id="status" class="status">Ready.</div>
+      <div class="tips">
+        Requires bucket listing permission and CORS. If listing is blocked, direct files still work if you know exact names.
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="margin-bottom: 10px;">
+        <span class="tag">electron-updater</span>
+        <span class="small">Quick links for common update artifacts in current directory.</span>
+      </div>
+      <div id="quickLinks" class="small">No artifacts yet.</div>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 52%;">File</th>
+            <th style="width: 12%;">Size</th>
+            <th style="width: 18%;">Last Modified</th>
+            <th style="width: 18%;">Action</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr><td colspan="4" class="small">No data. Click Reload.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const statusEl = document.getElementById("status");
+    const tbodyEl = document.getElementById("tbody");
+    const quickLinksEl = document.getElementById("quickLinks");
+    const prefixInput = document.getElementById("prefixInput");
+    const reloadBtn = document.getElementById("reloadBtn");
+    const copyBaseBtn = document.getElementById("copyBaseBtn");
+
+    function setStatus(text, level) {
+      statusEl.textContent = text;
+      statusEl.className = "status" + (level ? " " + level : "");
+    }
+
+    function getCurrentPrefixFromLocation() {
+      const raw = location.pathname || "/";
+      const withoutFile = raw.replace(/\/index\.html?$/i, "/");
+      const normalized = withoutFile.endsWith("/") ? withoutFile.slice(1) : withoutFile.slice(1) + "/";
+      return normalized;
+    }
+
+    function encodePath(path) {
+      return path.split("/").map(encodeURIComponent).join("/");
+    }
+
+    function formatSize(size) {
+      const n = Number(size || 0);
+      if (!Number.isFinite(n) || n <= 0) return "-";
+      const units = ["B", "KB", "MB", "GB"];
+      let v = n;
+      let i = 0;
+      while (v >= 1024 && i < units.length - 1) {
+        v /= 1024;
+        i += 1;
+      }
+      return (v < 10 && i > 0 ? v.toFixed(2) : v.toFixed(1)) + " " + units[i];
+    }
+
+    function parseListXml(xmlText) {
+      const dom = new DOMParser().parseFromString(xmlText, "application/xml");
+      const parseErr = dom.querySelector("parsererror");
+      if (parseErr) throw new Error("Invalid XML list response");
+      const contents = Array.from(dom.getElementsByTagName("Contents"));
+      return contents.map((node) => {
+        const key = node.getElementsByTagName("Key")[0]?.textContent || "";
+        const size = node.getElementsByTagName("Size")[0]?.textContent || "0";
+        const lastModified = node.getElementsByTagName("LastModified")[0]?.textContent || "";
+        return { key, size, lastModified };
+      });
+    }
+
+    async function fetchBucketList(prefix) {
+      const requests = [
+        `${location.origin}/?list-type=2&prefix=${encodeURIComponent(prefix)}`,
+        `${location.origin}/?prefix=${encodeURIComponent(prefix)}`,
+        `${location.origin}${location.pathname}?list-type=2&prefix=${encodeURIComponent(prefix)}`
+      ];
+
+      const errors = [];
+      for (const url of requests) {
+        try {
+          const resp = await fetch(url, { method: "GET", mode: "cors" });
+          if (!resp.ok) {
+            errors.push(`${resp.status} from ${url}`);
+            continue;
+          }
+          const text = await resp.text();
+          const parsed = parseListXml(text);
+          if (parsed.length > 0) return parsed;
+          errors.push(`empty list from ${url}`);
+        } catch (err) {
+          errors.push(String(err));
+        }
+      }
+      throw new Error(errors.join(" | "));
+    }
+
+    function buildQuickLinks(items, prefix) {
+      const matcher = /(latest\.ya?ml|\.exe|\.dmg|\.appimage|\.zip|\.nupkg)$/i;
+      const picked = items.filter((x) => matcher.test(x.key)).slice(0, 20);
+      if (!picked.length) {
+        quickLinksEl.innerHTML = "No common Electron update artifacts found.";
+        return;
+      }
+      const links = picked.map((x) => {
+        const rel = x.key.startsWith(prefix) ? x.key.slice(prefix.length) : x.key;
+        const href = "./" + encodePath(rel);
+        return `<div><a href="${href}" class="mono">${rel}</a></div>`;
+      });
+      quickLinksEl.innerHTML = links.join("");
+    }
+
+    function renderTable(items, prefix) {
+      const files = items
+        .filter((x) => x.key && !x.key.endsWith("/"))
+        .filter((x) => x.key.startsWith(prefix))
+        .sort((a, b) => a.key.localeCompare(b.key));
+
+      if (!files.length) {
+        tbodyEl.innerHTML = `<tr><td colspan="4" class="small">No files found under prefix: <span class="mono">${prefix}</span></td></tr>`;
+        return;
+      }
+
+      tbodyEl.innerHTML = files.map((f) => {
+        const rel = f.key.slice(prefix.length);
+        const href = "./" + encodePath(rel);
+        const when = f.lastModified ? new Date(f.lastModified).toLocaleString() : "-";
+        return `
+          <tr>
+            <td class="mono"><a href="${href}">${rel}</a></td>
+            <td>${formatSize(f.size)}</td>
+            <td>${when}</td>
+            <td><a href="${href}" download>Download</a></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    async function reload() {
+      const prefix = prefixInput.value.trim();
+      setStatus(`Loading prefix: ${prefix}`, "");
+      try {
+        const items = await fetchBucketList(prefix);
+        renderTable(items, prefix);
+        buildQuickLinks(items, prefix);
+        setStatus(`Loaded ${items.length} entries under prefix "${prefix}"`, "ok");
+      } catch (err) {
+        tbodyEl.innerHTML = `<tr><td colspan="4" class="small">List failed. You can still access known files directly, e.g. <span class="mono">./latest.yml</span></td></tr>`;
+        quickLinksEl.innerHTML = "Listing unavailable.";
+        setStatus(`List failed: ${String(err)}`, "warn");
+      }
+    }
+
+    reloadBtn.addEventListener("click", reload);
+    copyBaseBtn.addEventListener("click", async () => {
+      const url = location.href.replace(/index\.html?$/i, "");
+      try {
+        await navigator.clipboard.writeText(url);
+        setStatus(`Copied: ${url}`, "ok");
+      } catch {
+        setStatus("Copy failed (clipboard blocked by browser).", "warn");
+      }
+    });
+
+    prefixInput.value = getCurrentPrefixFromLocation();
+    reload();
+  </script>
+</body>
+</html>

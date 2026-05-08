@@ -1,0 +1,137 @@
+{
+  "gateway": "网关",
+  "channels": "频道",
+  "skills": "技能",
+  "uptime": "运行时间",
+  "port": "端口: {{port}}",
+  "pid": "PID: {{pid}}",
+  "connectedOf": "{{connected}} / {{total}} 已连接",
+  "enabledOf": "{{enabled}} / {{total}} 已启用",
+  "sinceRestart": "自上次重启",
+  "gatewayNotRunning": "网关未运行",
+  "models": {
+    "title": "模型",
+    "subtitle": "管理您的 AI 提供商并监控 Token 用量",
+    "actions": {
+      "configWizard": "配置向导"
+    },
+    "unset": "未设置",
+    "toast": {
+      "primarySet": "已设为主模型",
+      "fallbackRemoved": "已移除备用模型",
+      "fallbackSet": "已设为备用模型",
+      "modelAdded": "已添加模型",
+      "modelDeleted": "已删除模型",
+      "providerDeleted": "已删除服务商",
+      "providerSaved": "服务商已保存"
+    },
+    "current": {
+      "title": "当前模型",
+      "primary": "主要模型 (PRIMARY)",
+      "currentTag": "当前",
+      "fallbacks": "备用模型 (FALLBACKS)",
+      "addFallback": "添加备用",
+      "noFallbacks": "暂无备用模型"
+    },
+    "details": {
+      "gateway": {
+        "title": "网络配置 (Gateway)",
+        "port": "端口 (Port)",
+        "mode": "模式 (Mode)",
+        "authMode": "认证模式 (Auth Mode)"
+      },
+      "auth": {
+        "title": "认证配置 (Auth)",
+        "connected": "已连接"
+      },
+      "agents": {
+        "title": "智能体配置 (Agents)",
+        "primary": "默认模型 (Primary)",
+        "workspace": "工作区 (Workspace)"
+      },
+      "rawJson": "完整配置 JSON",
+      "selectProviderFirst": "请先从左侧选择一个服务商"
+    },
+    "usage": {
+      "title": "最近 Token 消耗",
+      "collapsedHint": "已折叠，点击右上角可查看最近 Token 消耗明细"
+    },
+    "dialogs": {
+      "addModel": {
+        "title": "添加模型",
+        "modelId": "模型 ID",
+        "modelIdPlaceholder": "例如 gpt-5.4"
+      },
+      "deleteProvider": {
+        "title": "删除服务商",
+        "message": "删除后会同步移除该服务商配置以及相关模型引用，确认继续吗？"
+      },
+      "editProvider": {
+        "title": "编辑服务商",
+        "name": "服务商名称 *",
+        "apiType": "API 类型",
+        "apiKeyOptional": "API Key (可选)",
+        "apiKeyPlaceholder": "留空则保留现有凭证",
+        "quickPick": "快速选择",
+        "quickModels": {
+          "deepseek": "DeepSeek",
+          "nvidia": "英伟达",
+          "siliconflow": "硅基流动",
+          "bailianCoding": "百炼 Coding"
+        }
+      }
+    },
+    "errors": {
+      "apiKeyValidationFailed": "API Key 校验失败"
+    }
+  },
+  "quickActions": {
+    "title": "快捷操作",
+    "description": "常用任务和快捷方式",
+    "addProvider": "添加模型供应商",
+    "addChannel": "添加频道",
+    "createCron": "创建定时任务",
+    "installSkill": "安装技能",
+    "openChat": "打开聊天",
+    "settings": "设置",
+    "devConsole": "开发者控制台"
+  },
+  "connectedChannels": "已连接频道",
+  "noChannels": "未配置频道",
+  "addFirst": "添加你的第一个频道",
+  "activeSkills": "已启用技能",
+  "noSkills": "未启用技能",
+  "enableSome": "启用一些技能",
+  "more": "+{{count}} 更多",
+  "recentTokenHistory": {
+    "title": "最近 Token 消耗",
+    "description": "展示最近的助手回复与工具结果中的模型/提供商用量记录。",
+    "loading": "正在加载 token 消耗历史...",
+    "empty": "还没有 token 消耗历史",
+    "groupByModel": "按模型",
+    "groupByTime": "按时间",
+    "last7Days": "7 天",
+    "last30Days": "30 天",
+    "allTime": "全部",
+    "showingLast": "共 {{count}} 条记录",
+    "totalTokens": "总 token",
+    "inputShort": "输入",
+    "outputShort": "输出",
+    "cacheShort": "缓存",
+    "page": "第 {{current}} / {{total}} 页",
+    "prev": "上一页",
+    "next": "下一页",
+    "unknownModel": "未知模型",
+    "emptyForWindow": "当前时间范围内没有 token 消耗历史",
+    "input": "输入 {{value}}",
+    "output": "输出 {{value}}",
+    "cacheRead": "缓存读取 {{value}}",
+    "cacheWrite": "缓存写入 {{value}}",
+    "cost": "费用 ${{amount}}",
+    "viewContent": "查看内容",
+    "contentDialogTitle": "用量明细内容",
+    "close": "关闭",
+    "noUsage": "无用量数据",
+    "usageParseError": "用量解析失败"
+  }
+}

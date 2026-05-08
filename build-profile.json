@@ -1,0 +1,9 @@
+{
+  "variant": "main",
+  "displayName": "Main Build",
+  "iterativeCatBaseUrl": "https://api.iterativecat.cn",
+  "updateBaseUrl": "https://iterativecat-1372106804.cos.ap-guangzhou.myqcloud.com/aigc_files/clawx_cat/main/stable",
+  "updateTrack": "",
+  "openclawTrack": "stable",
+  "openclawVersion": "2026.4.2"
+}

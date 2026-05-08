@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "users": [
+    {
+      "userId": "demo-user",
+      "name": "Demo User",
+      "token": "relay-user-demo-token",
+      "createdAt": 0
+    }
+  ],
+  "deviceTokens": [
+    {
+      "deviceId": "demo-device",
+      "deviceName": "Demo Device",
+      "token": "relay-device-demo-token",
+      "createdAt": 0
+    }
+  ],
+  "bindings": [
+    {
+      "userId": "demo-user",
+      "deviceId": "demo-device",
+      "createdAt": 0
+    }
+  ]
+}
