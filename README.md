@@ -1,5 +1,5 @@
 ﻿﻿﻿<p align="center">
-  <img src="src/assets/logo.svg" width="128" height="128" alt="ClawX-Cat Logo" />
+  <img src="src/assets/logo.png" width="128" height="128" alt="ClawX-Cat Logo" />
 </p>
 
 <h1 align="center">ClawX-Cat</h1>
